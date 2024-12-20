@@ -1,0 +1,75 @@
+networks:
+    inceptionnetwork:
+        driver: bridge
+
+volumes:
+    web-vol:
+        driver: local
+        driver_opts:
+            type: none
+            o: bind
+            device: ${HOST_WEB_VOL_PATH}
+    db-vol:
+        driver: local
+        driver_opts:
+            type: none
+            o: bind
+            device: ${HOST_DB_VOL_PATH}
+
+services:
+    nginx:
+        build: ${NGINX_BUILD_PATH}
+        init: true
+        image: nginx-img
+        restart: unless-stopped
+        container_name: nginx-ctnr
+        volumes:
+            - web-vol:/var/www/html
+        ports:
+            - "80:80"
+            - "443:443"
+        networks:
+            - inceptionnetwork
+        depends_on:
+            - wordpress
+
+    wordpress:
+        build: ${WORDPRESS_BUILD_PATH}
+        init: true
+        image: wordpress-img
+        restart: unless-stopped
+        container_name: wordpress-ctnr
+        environment:
+            WORDPRESS_DB_HOST: ${WORDPRESS_DB_HOST}
+            WORDPRESS_DB_NAME: ${WORDPRESS_DB_NAME}
+            WORDPRESS_DB_USER0: ${WORDPRESS_DB_USER0}
+            WORDPRESS_DB_USER1: ${WORDPRESS_DB_USER1}
+            WORDPRESS_DB_PASSWORD: ${WORDPRESS_DB_PASSWORD}
+        volumes:
+            - web-vol:/var/www/html
+#        ports:
+#            - "8080:80"
+        networks:
+            - inceptionnetwork
+        depends_on:
+            - mariadb
+
+    mariadb:
+        build: ${MARIADB_BUILD_PATH}
+        init: true
+        image: mariadb-img
+        restart: unless-stopped
+        container_name: mariadb-ctnr
+        environment:
+            SQL_DATABASE: ${SQL_DATABASE}
+            SQL_USER: ${SQL_USER}
+            SQL_PASSWORD: ${SQL_PASSWORD}
+            WORDPRESS_DB_USER0: ${WORDPRESS_DB_USER0}
+            WORDPRESS_DB_USER1: ${WORDPRESS_DB_USER1}
+            WORDPRESS_DB_PASSWORD: ${WORDPRESS_DB_PASSWORD}
+        volumes:
+            - db-vol:/var/lib/mysql
+        ports:
+            - "3306:3306"
+        networks:
+            - inceptionnetwork

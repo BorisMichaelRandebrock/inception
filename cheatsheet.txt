@@ -1,0 +1,23 @@
+enter db: docker exec -it mariadb-ctnr bash
+mysql -u wpuser -p
+USE wpdb;
+SHOW TABLES;
+
+docker ps -a 	=> shows active containers
+ip a 					=> shows ip address
+docker-compose up -d --build
+docker-compose down --remove-orphans
+
+docker exec -it wp-ctnr bash
+
+docker system prune -a -f 
+docker-compose up -d --build
+
+clean db:
+sudo su & password
+cd data/db 
+rm -rf *
+cd ../wp 
+rm -rf *
+
+docker-compose down --remove-orphans  --volumes
