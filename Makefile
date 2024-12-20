@@ -1,7 +1,7 @@
 
 MPATH=srcs/
-COMPOSE_FILE	:= srcs/docker-compose.yml
-#COMPOSE_FILE	:= $(MPATH)docker-compose.yml
+COMPOSE_FILE	:= $(MPATH)docker-compose.yml
+#COMPOSE_FILE	:= srcs/docker-compose.yml
 
 all: build up
 

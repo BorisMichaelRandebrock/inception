@@ -47,8 +47,6 @@ services:
             WORDPRESS_DB_PASSWORD: ${WORDPRESS_DB_PASSWORD}
         volumes:
             - web-vol:/var/www/html
-#        ports:
-#            - "8080:80"
         networks:
             - inceptionnetwork
         depends_on:
