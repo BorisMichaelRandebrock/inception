@@ -22,15 +22,15 @@ project_root/
 │   ├── docker-compose.yml   
 │   ├── .env   
 │   ├── requirements/   
-│       ├── nginx/   
-│       │   ├── Dockerfile   
-│       │   ├── conf/   
-│       ├── mariadb/   
-│       │   ├── Dockerfile   
-│       │   ├── conf/   
-│       └── wordpress/   
-│           ├── Dockerfile   
-│           ├── tools/   
+│            ├── nginx/   
+│            │   ├── Dockerfile   
+│            │   ├── conf/   
+│            ├── mariadb/   
+│            │   ├── Dockerfile   
+│            │   ├── conf/   
+│            └── wordpress/   
+│                ├── Dockerfile   
+│                ├── tools/   
 
 
 ### Makefile  
